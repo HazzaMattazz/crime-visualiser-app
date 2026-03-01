@@ -34,7 +34,6 @@ public partial class CrimePage(IUkCrimeDataClient _ukCrimeDataClient)
             return;
         }
 
-        hasSearched = true;
         crimeData = await GetCrimeDataAsync(crimeQuery);
 
         // Group the returned crime data by category and compute counts
@@ -46,6 +45,8 @@ public partial class CrimePage(IUkCrimeDataClient _ukCrimeDataClient)
                 .OrderByDescending(x => x.Count)
                 .ToList();
         }
+
+        hasSearched = true;
     }
 
     private bool ValidateCrimeQuery(CrimeQuery crimeQuery)
