@@ -1,0 +1,57 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Crime Summary</PageTitle>
+
+<div id="search">
+    <div class="mb-3">
+        <label class="form-label">Latitude</label>
+        <InputNumber TValue="double" class="form-control" @bind-Value="crimeQuery.Latitude" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Longitude</label>
+        <InputNumber TValue="double" class="form-control" @bind-Value="crimeQuery.Longitude" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <InputDate TValue="DateOnly" class="form-control" @bind-Value="crimeQuery.Date" />
+    </div>
+
+    <button class="btn btn-primary" @onclick="OnSearchClicked">Search</button>
+</div>
+
+@if (hasSearched)
+{
+    if (crimeData == null)
+    {
+        <p>Loading...</p>
+    }
+    else if (categoryCounts == null || !categoryCounts.Any())
+    {
+        <p>No crime data found for the specified location and date.</p>
+    }
+    else
+    {
+        <h3>Crime counts by category</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th class="text-end">Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in categoryCounts)
+                {
+                    <tr>
+                        <td>@item.Category</td>
+                        <td class="text-end">@item.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
