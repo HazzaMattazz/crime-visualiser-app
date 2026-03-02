@@ -1,0 +1,65 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Crime Summary</PageTitle>
+
+<div id="search" class="mb-3">
+    <EditForm EditContext="@_editContext">
+        <div class="mb-3">
+            <label class="form-label">Latitude</label>
+            <InputNumber TValue="double" class="form-control" @bind-Value="_crimeQuery.Latitude" />
+            <ValidationMessage For="@(() => _crimeQuery.Latitude)" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Longitude</label>
+            <InputNumber TValue="double" class="form-control" @bind-Value="_crimeQuery.Longitude" />
+            <ValidationMessage For="@(() => _crimeQuery.Longitude)" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <InputDate TValue="DateOnly" class="form-control" @bind-Value="_crimeQuery.Date" />
+            <ValidationMessage For="@(() => _crimeQuery.Date)" />
+        </div>
+
+        <button class="btn btn-primary" @onclick="OnSearchClicked">Search</button>
+    </EditForm>
+</div>
+
+@if (_hasSearched)
+{
+    if (_isLoading)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        if (_categoryCounts == null || !_categoryCounts.Any())
+        {
+            <p>No crime data found for the specified location and date.</p>
+        }
+        else
+        {
+            <h3>Crime counts by category</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th class="text-end">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in _categoryCounts)
+                    {
+                        <tr>
+                            <td>@item.Category</td>
+                            <td class="text-end">@item.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+}
+
