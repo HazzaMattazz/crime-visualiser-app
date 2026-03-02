@@ -24,8 +24,6 @@ Basic ASP.NET Blazor application to visualise crime data in the UK. The applicat
 - `xUnit` - unit test runner
 - `Moq` - mocking dependencies in tests
 - `FluentValidation` - request/model validation used by the page
-- `System.Text.Json` - JSON (de)serialization for API responses
-- `Microsoft.Extensions.Logging.Abstractions` - `NullLogger` used in tests
 
 ## Version
 
