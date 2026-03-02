@@ -17,11 +17,11 @@ public partial class CrimePage(IUkCrimeDataClient _ukCrimeDataClient)
 
     protected override void OnInitialized()
     {
-        // Initialize with sensible defaults so the UI has values to bind to
+        // Queens Park - Bristol
         crimeQuery = new CrimeQuery
         {
-            Latitude = 51.44237,
-            Longitude = -2.49810,
+            Latitude = 51.45052,
+            Longitude = -2.59470,
             Date = DateOnly.FromDateTime(DateTime.Today)
         };
     }
@@ -58,7 +58,8 @@ public partial class CrimePage(IUkCrimeDataClient _ukCrimeDataClient)
 
     private async Task<IEnumerable<CrimeDto>?> GetCrimeDataAsync(CrimeQuery crimeQuery)
     {
-        return await _ukCrimeDataClient.GetCrimesAsync(crimeQuery.Latitude, crimeQuery.Longitude, crimeQuery.Date);
+        //return await _ukCrimeDataClient.GetCrimesAsync(crimeQuery.Latitude, crimeQuery.Longitude, crimeQuery.Date);
+        return null;
     }
 
     private record CrimeCategoryCount(string Category, int Count);
