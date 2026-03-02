@@ -3,7 +3,7 @@ using crime_visualiser.Models;
 
 namespace crime_visualiser.HttpClients;
 
-public class UkCrimeDataClient(HttpClient _httpClient) : IUkCrimeDataClient
+public class UkCrimeDataClient(HttpClient httpClient, ILogger<UkCrimeDataClient> logger) : IUkCrimeDataClient
 {
     public async Task<IEnumerable<CrimeDto>?> GetCrimesAsync(double latitude, double longitude, DateOnly date)
     {
@@ -14,7 +14,7 @@ public class UkCrimeDataClient(HttpClient _httpClient) : IUkCrimeDataClient
             var dateString = date.ToString("yyyy-MM");
             var endpoint = $"crimes-street/all-crime?lat={latitude}&lng={longitude}&date={dateString}";
 
-            var response = await _httpClient.GetAsync(endpoint);
+            var response = await httpClient.GetAsync(endpoint);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadFromJsonAsync<IEnumerable<CrimeDto>>();
@@ -22,7 +22,7 @@ public class UkCrimeDataClient(HttpClient _httpClient) : IUkCrimeDataClient
         }
         catch (Exception ex)
         {
-            // Log error...
+            logger.LogError(ex, "Error fetching crime data for lat: {Latitude}, lng: {Longitude}, date: {Date}", latitude, longitude, date);
             return null;
         }
     }

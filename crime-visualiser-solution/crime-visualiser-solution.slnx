@@ -2,5 +2,6 @@
   <Folder Name="/Solution Items/">
     <File Path="../README.md" />
   </Folder>
+  <Project Path="crime-visualiser.tests/crime-visualiser.tests.csproj" Id="771ecca0-44e4-4607-ad7e-93f4931bd877" />
   <Project Path="crime-visualiser/crime-visualiser.csproj" />
 </Solution>

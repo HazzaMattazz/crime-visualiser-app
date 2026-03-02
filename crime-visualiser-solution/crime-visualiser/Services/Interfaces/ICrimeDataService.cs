@@ -1,6 +1,8 @@
-﻿namespace crime_visualiser.Services.Interfaces;
+﻿using crime_visualiser.Models;
+
+namespace crime_visualiser.Services.Interfaces;
 
 public interface ICrimeDataService
 {
-    public Task GetCrime();
+    public Task<IEnumerable<CrimeCategoryCount>?> GetCrimeCategoryCountsAsync(CrimeQuery crimeQuery);
 }
